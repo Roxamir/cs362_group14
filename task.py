@@ -3,7 +3,8 @@ def conv_num(num_str):
     This function takes in a string and converts it into a base 10 number
     and returns it. Returns None if string is an invalid format.
     """
-    pass
+    length = len(num_str)
+    return length
 
 
 def my_datetime(num_sec):
