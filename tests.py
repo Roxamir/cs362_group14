@@ -1,8 +1,5 @@
 import unittest
 
-"test commit"
-
-
 class TestCase(unittest.TestCase):
 
     def test1(self):
