@@ -4,9 +4,7 @@ import task
 import random
 
 
-
 class TestMyDatetime(unittest.TestCase):
-
 
     def test_epoch_start(self):
         self.assertEqual(my_datetime(0), '01-01-1970')
@@ -100,7 +98,6 @@ class TestMyDatetime(unittest.TestCase):
             hex_num = ' '.join(map(str, hex_list))
         hex_num = '-' + hex_num
         self.assertEqual(hex_num, task.conv_endian(num, endian))
-
 
 
 if __name__ == '__main__':
