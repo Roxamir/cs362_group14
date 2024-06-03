@@ -1,11 +1,3 @@
-def conv_num(num_str):
-    """
-    This function takes in a string and converts it into a base 10 number
-    and returns it. Returns None if string is an invalid format.
-    """
-    pass
-
-
 def my_datetime(num_sec):
     """
     This function takes an integer value that represents the number of seconds
@@ -45,11 +37,3 @@ def my_datetime(num_sec):
         current_year += 1
         # If we exit the while loop, it means we need to return the result for the remaining days
     return f"{1:02d}-{days_remaining + 1:02d}-{current_year}"
-
-
-def conv_endian(num, endian='big'):
-    """
-    This function takes in an integer value as 'num' and conferts it to a
-    hexadecimal number. Endian type is determined by the flag 'endian'.
-    """
-    pass
