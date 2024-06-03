@@ -23,7 +23,12 @@ def conv_endian(num, endian='big'):
     hex_dict = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     hex_byte_list = []
     current_byte = ''
-    dec_num = num
+    if num < 0:
+        neg_flag = True
+        dec_num = -num
+    else:
+        neg_flag = False
+        dec_num = num
     while True:                                                         # loop till decimal is 0
         current_byte = hex_dict[dec_num % 16] + current_byte
         dec_num = dec_num//16
@@ -32,7 +37,7 @@ def conv_endian(num, endian='big'):
             current_byte = ''
         if dec_num < 16:                                                # end of num reached, save and break
             current_byte = hex_dict[dec_num % 16] + current_byte
-            if len(current_byte) == 1:
+            if len(current_byte) == 1:                                  # leading zero for byte
                 current_byte = '0' + current_byte
             hex_byte_list.insert(0, current_byte)
             break
@@ -40,8 +45,10 @@ def conv_endian(num, endian='big'):
     if endian == 'big':
         hex_num = ' '.join(map(str, hex_byte_list))
     elif endian == 'little':
-        hex_num = ' '.join(map(str, hex_byte_list[::-1]))
+        hex_num = ' '.join(map(str, hex_byte_list[::-1]))               # flip order on little endian
     else:
         raise Exception("Endian type can only be 'little' or 'big'.")
 
+    if neg_flag:
+        hex_num = '-' + hex_num
     return hex_num
