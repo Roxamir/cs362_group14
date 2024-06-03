@@ -23,7 +23,7 @@ def my_datetime(num_sec):
     leap_year_dict = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
     reg_year_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
     # Helper function to check for leap year
-    
+
     def is_leap_year(year):
         if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
             return True
@@ -34,8 +34,7 @@ def my_datetime(num_sec):
             curr_dict = leap_year_dict
         else:
             curr_dict = reg_year_dict
-        
-        for month in range(1, 13):
+        for month in range(1, 13):  # 1 to 12 for months
             days_in_month = curr_dict[month]
             if days_remaining >= days_in_month:
                 days_remaining -= days_in_month
@@ -43,9 +42,8 @@ def my_datetime(num_sec):
                 month_to_return = month
                 day_to_return = days_remaining + 1  # days are 1-indexed
                 return f"{month_to_return:02d}-{day_to_return:02d}-{current_year}"
-        
         current_year += 1
-    # If we exit the while loop, it means we need to return the result for the remaining days
+        # If we exit the while loop, it means we need to return the result for the remaining days
     return f"{1:02d}-{days_remaining + 1:02d}-{current_year}"
 
 
