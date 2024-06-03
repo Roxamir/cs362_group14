@@ -20,10 +20,8 @@ def my_datetime(num_sec):
     current_year = 1970
 
     # Dictionaries for days in months for leap and regular years
-    leap_year_dict = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 
-                      7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
-    reg_year_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 
-                     7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+    leap_year_dict = {1: 31, 2: 29, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+    reg_year_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
     # Helper function to check for leap year
     
     def is_leap_year(year):
@@ -37,7 +35,7 @@ def my_datetime(num_sec):
         else:
             curr_dict = reg_year_dict
         
-        for month in range(1, 13):  # 1 to 12 for months
+        for month in range(1, 13):
             days_in_month = curr_dict[month]
             if days_remaining >= days_in_month:
                 days_remaining -= days_in_month
