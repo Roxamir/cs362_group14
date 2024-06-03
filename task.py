@@ -53,3 +53,4 @@ def conv_endian(num, endian='big'):
     hexadecimal number. Endian type is determined by the flag 'endian'.
     """
     pass
+
