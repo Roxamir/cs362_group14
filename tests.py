@@ -1,5 +1,6 @@
 import unittest
-from task import my_datetime 
+from task import my_datetime
+
 
 class TestMyDatetime(unittest.TestCase):
 
