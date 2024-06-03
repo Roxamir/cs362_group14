@@ -27,9 +27,21 @@ class TestCase(unittest.TestCase):
         """Tests my_datetime function."""
         self.assertEqual(task.my_datetime(0), '01-01-1970')
 
-    def test_conv_endian(self):
-        """Tests conv_endian function."""
-        self.assertEqual('6B 32', task.conv_endian(27442))
+    def test_conv_endian_little_pos(self):
+        """Tests conv_endian function for positive little endian."""
+        self.assertEqual('32 6B', task.conv_endian(27442, 'little'))
+
+    def test_conv_endian_big_pos(self):
+        """Tests conv_endian function for positive big endian."""
+        self.assertEqual('16 61', task.conv_endian(5729, 'big'))
+
+    def test_conv_endian_little_neg(self):
+        """Tests conv_endian function for negative little endian."""
+        self.assertEqual('-32 6B', task.conv_endian(-27442, 'little'))
+
+    def test_conv_endian_big_neg(self):
+        """Tests conv_endian function for negative big endian."""
+        self.assertEqual('-16 61', task.conv_endian(-5729, 'big'))
 
 
 if __name__ == '__main__':
