@@ -1,49 +1,3 @@
-def conv_num(num_str):
-    """
-    This function takes in a string and converts it into a base 10 number
-    and returns it. Returns None if string is an invalid format.
-    """
-    return True
-
-
-def my_datetime(num_sec):
-    """
-    This function takes an integer value that represents the number of seconds
-    since the epoch: January 1st, 1970. Takes 'num_sec', converts to date and
-    returns it as a string with the format MM-DD-YYYY.
-    """
-    days_remaining = num_sec // 86400
-    leap_year_dict = {'01': 31, '02': 29, '03': 31, '04': 30, '05': 31, '06': 30,
-                      '07': 31, '08': 31, '09': 30, '10': 31, '11': 30, '12': 31}
-    comm_year_dict = {'01': 31, '02': 28, '03': 31, '04': 30, '05': 31, '06': 30,
-                      '07': 31, '08': 31, '09': 30, '10': 31, '11': 30, '12': 31}
-    year_to_return = '1970'
-    month_to_return = '01'
-    days_to_return = '01'
-    year = int(year_to_return)
-    while days_remaining > 0:
-        # set year calendar
-        current_dict = comm_year_dict
-        if year % 100 == 0:
-            if year % 400 == 0:
-                current_dict = leap_year_dict
-        elif year % 4 == 0:
-            current_dict = leap_year_dict
-
-        # iterate through days, and months till date reached, repeat from beginning at year-end
-        for current_month in current_dict.keys():
-            end_of_month_date = current_dict[current_month]
-            if days_remaining > end_of_month_date:
-                days_remaining = days_remaining - end_of_month_date
-                continue
-            else:
-                month_to_return = current_month
-                days_to_return = days_remaining + 1
-                return str(month_to_return) + '-' + str(days_to_return) + '-' + str(year)
-        year += 1
-    return str(month_to_return) + '-' + str(days_to_return) + '-' + str(year)
-
-
 def conv_endian(num, endian='big'):
     """
     This function takes in an integer value as 'num' and converts it to a
@@ -53,7 +7,7 @@ def conv_endian(num, endian='big'):
                 8: '8', 9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     big_end_byte_arr = []
     current_byte = ''
-    if num < 0:
+    if num < 0:             # negative check
         neg_flag = True
         dec_num = -num
     else:
