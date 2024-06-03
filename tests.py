@@ -29,7 +29,7 @@ class TestCase(unittest.TestCase):
 
     def test_conv_endian(self):
         """Tests conv_endian function."""
-        self.assertEqual(task.conv_endian(954786), '0E 91 A2')
+        self.assertEqual('6B 32', task.conv_endian(27442))
 
 
 if __name__ == '__main__':
