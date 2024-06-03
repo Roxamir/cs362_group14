@@ -38,6 +38,7 @@ def my_datetime(num_sec):
         # If we exit the while loop, it means we need to return the result for the remaining days
     return f"{1:02d}-{days_remaining + 1:02d}-{current_year}"
 
+
 def conv_endian(num, endian='big'):
     """
     This function takes in an integer value as 'num' and converts it to a
@@ -76,4 +77,3 @@ def conv_endian(num, endian='big'):
     if neg_flag:
         hex_num = '-' + hex_num
     return hex_num
-
