@@ -17,21 +17,14 @@ def conv_num(num_str):
         return None
 
     # negative check
-    if num_str[0] == '-':
-        negative_check = True
-        # remove negative from string
+    negative_check = num_str.startswith("-")
+    # remove negative from string
+    if negative_check:
         num_str = num_str[1:]
-    else:
-        negative_check = False
-
-    num_length = len(num_str)
 
     # hexadecimal check
+    hex_num = 0
     if num_str.lower().startswith("0x"):
-        # check if hexadecimal section is empty
-        if num_length == 2:
-            return None
-        hex_num = 0
         # omit first two characters of hexadecimal string
         hexa_str = num_str[2:].lower()
         exp = 0
@@ -50,10 +43,10 @@ def conv_num(num_str):
 
     # decimal conversion
     # multipliers to move to different base-10 digits
-    decimal_num = 0
     tens_multiplier = 1
     tenths_multiplier = 0.1
 
+    decimal_num = 0
     # decimal check
     decimal_count = num_str.count('.')
 
@@ -104,16 +97,3 @@ def conv_endian(num, endian='big'):
     hexadecimal number. Endian type is determined by the flag 'endian'.
     """
     pass
-
-
-if __name__ == "__main__":
-
-    print(conv_num('12345'))       # returns 12345
-    print(conv_num('-123.45'))     # returns -123.45
-    print(conv_num('.45'))         # returns 0.45
-    print(conv_num('123.'))        # returns 123.0
-    print(conv_num('0xAD4'))       # returns 2772
-    print(conv_num('0Xad4'))       # returns 2772
-    print(conv_num('0xAZ4'))       # returns None
-    print(conv_num('12345A'))      # returns None
-    print(conv_num('12.3.45'))     # returns None
