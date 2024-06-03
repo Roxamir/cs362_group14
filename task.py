@@ -4,7 +4,13 @@ def conv_num(num_str):
     and returns it. Returns None if string is an invalid format.
     """
 
-    decimal_num = 0
+    def char_to_int(char):
+        if '0' <= char <= '9':
+            return ord(char) - 48
+        elif 'a' <= char <= 'f':
+            return ord(char) - 87
+        else:
+            return None
 
     # empty string check
     if not num_str:
@@ -19,15 +25,6 @@ def conv_num(num_str):
         negative_check = False
 
     num_length = len(num_str)
-    decimal_count = 0
-
-    for i in range(num_length):
-        # decimal check
-        if num_str[i] == ".":
-            decimal_count += 1
-
-        if decimal_count > 1:
-            return None
 
     # hexadecimal check
     if num_str.lower().startswith("0x"):
@@ -42,52 +39,52 @@ def conv_num(num_str):
         # hexadecimal conversion
         # iterating through string backwards to handle 16^exp
         for char in reversed(hexa_str):
-            if '0' <= char <= '9':
-                # ord(0) = 48. subtract 48 to get int value
-                hex_num += (ord(char) - 48) * (16 ** exp)
-
-            elif 'a' <= char <= 'f':
-                # ord('a') = 97, subtract 87 to get hexadecimal values
-                hex_num += (ord(char) - 87) * (16 ** exp)
-
-            else:
+            value = char_to_int(char)
+            if value is None:
                 return None
+
+            hex_num += value * (16 ** exp)
             # increase 16 exponent for next hexadecimal position
             exp += 1
         return -hex_num if negative_check else hex_num
 
     # decimal conversion
     # multipliers to move to different base-10 digits
+    decimal_num = 0
     tens_multiplier = 1
     tenths_multiplier = 0.1
 
-    if decimal_count >= 0:
-        if decimal_count == 1:
-            # split string into whole number and fractional number str
-            whole_num, fraction_num = num_str.split('.')
-        else:
-            whole_num = num_str
-        # iterate through whole_num backwards to ascend through base-10 digits
-        for char in reversed(whole_num):
-            if char < '0' or char > '9':
-                return None
+    # decimal check
+    decimal_count = num_str.count('.')
 
-            else:
-                decimal_num += (ord(char) - 48) * tens_multiplier
+    if decimal_count == 1:
+        # split string into whole number and fractional number str
+        whole_num, fraction_num = num_str.split('.')
+        # add decimal place for strings ending with '.'
+        decimal_num += 0.0
+    else:
+        whole_num = num_str
+        fraction_num = ""
 
-            # move to next base-10 position
-            tens_multiplier *= 10
-        if decimal_count != 0:
-            # iterate through fraction_num to descend through base-10 digits
-            for char in fraction_num:
-                if '0' <= char <= '9':
-                    decimal_num += (ord(char) - 48) * tenths_multiplier
+    # iterate through whole_num backwards to ascend through base-10 digits
+    for char in reversed(whole_num):
+        value = char_to_int(char)
+        if value is None:
+            return None
 
-                else:
-                    return None
+        decimal_num += value * tens_multiplier
 
-                # move to next base-10 position
-                tenths_multiplier *= 0.1
+        # move to next base-10 position
+        tens_multiplier *= 10
+
+    # iterate through fraction_num to descend through base-10 digits
+    for char in fraction_num:
+        value = char_to_int(char)
+        if value is None:
+            return None
+        decimal_num += value * tenths_multiplier
+        # move to next base-10 position
+        tenths_multiplier *= 0.1
 
     return -decimal_num if negative_check else decimal_num
 
