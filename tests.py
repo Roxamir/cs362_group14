@@ -36,6 +36,12 @@ class TestCases(unittest.TestCase):
     def test_conv_num_multiple_decimals(self):
         self.assertEqual(task.conv_num('1.23.45'), None)
 
+    def test_conv_num_zero_hexa(self):
+        self.assertEqual(task.conv_num('0x0'), 0)
+
+    def tes_conv_num_zero_decimal(self):
+        self.assertEqual(task.conv_num('0'), 0)
+
     def test_epoch_start(self):
         self.assertEqual(task.my_datetime(0), '01-01-1970')
 

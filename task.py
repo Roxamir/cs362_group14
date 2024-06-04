@@ -55,7 +55,11 @@ def conv_num(num_str):
     if num_str.lower().startswith("0x"):
         # omit first two characters of hexadecimal string
         hexa_str = num_str[2:].lower()
-        converted_num = conv_hexa(hexa_str)
+
+        if not hexa_str:
+            return None
+        else:
+            converted_num = conv_hexa(hexa_str)
 
     else:
         # decimal conversion
