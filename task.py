@@ -12,6 +12,23 @@ def conv_num(num_str):
         else:
             return None
 
+    def conv_hexa(hexa_str):
+        hexa_num = 0
+        hexa_length = len(hexa_str)
+        exp = 0
+        while exp < hexa_length:
+            # iterate backwards through hex_str using exp
+            char = hexa_str[hexa_length - 1 - exp]
+            value = char_to_int(char)
+            if value is None:
+                return None
+
+            hexa_num += value * (16 ** exp)
+            # increase 16 exponent for next hexadecimal position
+            exp += 1
+
+        return hexa_num
+
     # empty string check
     if not num_str:
         return None
@@ -23,23 +40,12 @@ def conv_num(num_str):
         num_str = num_str[1:]
 
     # hexadecimal check
-    hex_num = 0
     if num_str.lower().startswith("0x"):
         # omit first two characters of hexadecimal string
         hexa_str = num_str[2:].lower()
-        exp = 0
+        hexa_num = conv_hexa(hexa_str)
 
-        # hexadecimal conversion
-        # iterating through string backwards to handle 16^exp
-        for char in reversed(hexa_str):
-            value = char_to_int(char)
-            if value is None:
-                return None
-
-            hex_num += value * (16 ** exp)
-            # increase 16 exponent for next hexadecimal position
-            exp += 1
-        return -hex_num if negative_check else hex_num
+        return -hexa_num if negative_check else hexa_num
 
     # decimal conversion
     # multipliers to move to different base-10 digits
