@@ -1,33 +1,43 @@
+def char_to_int(char):
+    """
+    Helper function for conv_num. Takes a string character
+    that is either hexadecimal or deciaml and returns its value as an int.
+    """
+    if '0' <= char <= '9':
+        return ord(char) - 48
+    elif 'a' <= char <= 'f':
+        return ord(char) - 87
+    else:
+        return None
+
+
+def conv_hexa(hexa_str):
+    """
+    Helper fucntion for conv_num. Takes a hexadecimal string and converts
+    it to a decimal number.
+    """
+    hexa_num = 0
+    hexa_length = len(hexa_str)
+    exp = 0
+    while exp < hexa_length:
+        # iterate backwards through hex_str using exp
+        char = hexa_str[hexa_length - 1 - exp]
+        value = char_to_int(char)
+        if value is None:
+            return None
+
+        hexa_num += value * (16 ** exp)
+        # increase 16 exponent for next hexadecimal position
+        exp += 1
+
+    return hexa_num
+
+
 def conv_num(num_str):
     """
     This function takes in a string and converts it into a base 10 number
     and returns it. Returns None if string is an invalid format.
     """
-
-    def char_to_int(char):
-        if '0' <= char <= '9':
-            return ord(char) - 48
-        elif 'a' <= char <= 'f':
-            return ord(char) - 87
-        else:
-            return None
-
-    def conv_hexa(hexa_str):
-        hexa_num = 0
-        hexa_length = len(hexa_str)
-        exp = 0
-        while exp < hexa_length:
-            # iterate backwards through hex_str using exp
-            char = hexa_str[hexa_length - 1 - exp]
-            value = char_to_int(char)
-            if value is None:
-                return None
-
-            hexa_num += value * (16 ** exp)
-            # increase 16 exponent for next hexadecimal position
-            exp += 1
-
-        return hexa_num
 
     # empty string check
     if not num_str:
