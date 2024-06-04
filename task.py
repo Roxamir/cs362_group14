@@ -33,6 +33,8 @@ def conv_num(num_str):
     if not num_str:
         return None
 
+    converted_num = 0
+
     # negative check
     negative_check = num_str.startswith("-")
     # remove negative from string
@@ -43,49 +45,47 @@ def conv_num(num_str):
     if num_str.lower().startswith("0x"):
         # omit first two characters of hexadecimal string
         hexa_str = num_str[2:].lower()
-        hexa_num = conv_hexa(hexa_str)
+        converted_num = conv_hexa(hexa_str)
 
-        return -hexa_num if negative_check else hexa_num
-
-    # decimal conversion
-    # multipliers to move to different base-10 digits
-    tens_multiplier = 1
-    tenths_multiplier = 0.1
-
-    decimal_num = 0
-    # decimal check
-    decimal_count = num_str.count('.')
-
-    if decimal_count == 1:
-        # split string into whole number and fractional number str
-        whole_num, fraction_num = num_str.split('.')
-        # add decimal place for strings ending with '.'
-        decimal_num += 0.0
     else:
-        whole_num = num_str
-        fraction_num = ""
+        # decimal conversion
+        # multipliers to move to different base-10 digits
+        tens_multiplier = 1
+        tenths_multiplier = 0.1
 
-    # iterate through whole_num backwards to ascend through base-10 digits
-    for char in reversed(whole_num):
-        value = char_to_int(char)
-        if value is None:
-            return None
+        # decimal check
+        decimal_count = num_str.count('.')
 
-        decimal_num += value * tens_multiplier
+        if decimal_count == 1:
+            # split string into whole number and fractional number str
+            whole_num, fraction_num = num_str.split('.')
+            # add decimal place for strings ending with '.'
+            converted_num += 0.0
+        else:
+            whole_num = num_str
+            fraction_num = ""
 
-        # move to next base-10 position
-        tens_multiplier *= 10
+        # iterate through whole_num backwards to ascend through base-10 digits
+        for char in reversed(whole_num):
+            value = char_to_int(char)
+            if value is None:
+                return None
 
-    # iterate through fraction_num to descend through base-10 digits
-    for char in fraction_num:
-        value = char_to_int(char)
-        if value is None:
-            return None
-        decimal_num += value * tenths_multiplier
-        # move to next base-10 position
-        tenths_multiplier *= 0.1
+            converted_num += value * tens_multiplier
 
-    return -decimal_num if negative_check else decimal_num
+            # move to next base-10 position
+            tens_multiplier *= 10
+
+        # iterate through fraction_num to descend through base-10 digits
+        for char in fraction_num:
+            value = char_to_int(char)
+            if value is None:
+                return None
+            converted_num += value * tenths_multiplier
+            # move to next base-10 position
+            tenths_multiplier *= 0.1
+
+    return -converted_num if negative_check else converted_num
 
 
 def my_datetime(num_sec):
